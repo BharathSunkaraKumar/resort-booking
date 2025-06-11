@@ -56,10 +56,10 @@ export default function AddProduct() {
             </div>
             <div>
                 <h3>Upload Image</h3>
-                <input type="file" accept="image/*" name="image" onChange={(e)=>{setImage(e.target.files[0])}} />
+                <input className="py-2 px-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" type="file" accept="image/*" name="image" onChange={(e)=>{setImage(e.target.files[0])}} />
             </div>
-            <div>
-                <button className="bg-sky-500 px-5 py-2 text-white rounded-sm" type="sumbit">Submit</button>
+            <div className="flex justify-center w-full mt-2">
+                <button className="bg-sky-500 px-5 py-2 text-white rounded-sm w-full" type="sumbit">Submit</button>
             </div>
         </form>
         </div>
