@@ -14,8 +14,24 @@ export default function AddProduct() {
         e.preventDefault()
         const recordDetails = {title, price, offer, amen, description, image};
         console.log(recordDetails);
+        
+        const data = new FormData();
+        data.append('title', title)
+        data.append('price', price)
+        data.append('offer', offer)
+        data.append('amen', amen)
+        data.append('description', description)
+        data.append('image', image)
         try {
-            await productActions(recordDetails)
+            // await productActions(recordDetails)
+            const response = await fetch('http://localhost:3000/api/admin/add-product',{
+                method: "POST",
+                body: data
+            })
+            const result = await response.json()
+            if(result.success) {
+                alert('Record added successfully');
+            }
         } catch (error) {
             console.log(error)
         }
@@ -46,7 +62,7 @@ export default function AddProduct() {
                 <h3>Amenities</h3>
                 <input
                 className='w-full max-w-md rounded border border-gray-300 py-2 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                 type="text" name="amenities" value={amen} onChange={(e)=>{setAmen(e.target.value)}} placeholder="amenities" />
+                 type="text" name="amen" value={amen} onChange={(e)=>{setAmen(e.target.value)}} placeholder="amenities" />
             </div>
             <div>
                 <h3>Description</h3>

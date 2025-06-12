@@ -3,6 +3,7 @@ import { auth } from "./auth";
 import { dbConnection } from "./utils/config/db";
 import NavBar from "./components/NavBar";
 import Adminpage from "./admin/page";
+import ProductCollections from "./components/ProductCollections";
 
 export default async function Home() {
   const session = await auth()
@@ -20,7 +21,8 @@ export default async function Home() {
           <>
             <NavBar userName={userName}/>
             <div className="container mx-auto px-4 py-4">
-              <h1 className="text-xl text-blue-500">hello</h1>
+              {/* <h1 className="text-xl text-blue-500">hello</h1> */}
+              <ProductCollections/>
             </div>
           </>
         )
