@@ -31,6 +31,12 @@ export default function AddProduct() {
             const result = await response.json()
             if(result.success) {
                 alert('Record added successfully');
+                setTitle('')
+                setPrice('')
+                setOffer('')
+                setAmen('')
+                setDescription('')
+                setImage('')
             }
         } catch (error) {
             console.log(error)

@@ -1,5 +1,6 @@
 'use client'
 
+import Calendar from "@/app/components/Calendar"
 import NavBar from "@/app/components/NavBar"
 import Link from "next/link"
 import { useParams } from "next/navigation"
@@ -21,6 +22,7 @@ export default function page() {
   return (
     <div>
         <NavBar/>
+        <Calendar/>
         <div className="container mx-auto px-4 py-4">
         {product && (
             <div className="flex justify-center items-center h-screen">
@@ -36,7 +38,7 @@ export default function page() {
                         product?.amen.map((each, key) => {
                             return(
                                 <div key={key}>
-                                    <i>✵{each}</i>
+                                    <i className="sm:text-xs">✵{each}</i>
                                 </div>
                             )
                         })

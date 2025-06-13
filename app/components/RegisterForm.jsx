@@ -53,7 +53,7 @@ export default function RegisterForm() {
             <div 
                 className='flex justify-center mt-3'>
                 <button 
-                    className='bg-blue-500 px-3 py-1 rounded-md text-white hover:bg-blue-600 active:bg-blue-700' type='submit'>Resgister
+                    className='bg-blue-500 px-3 py-1 rounded-md text-white hover:bg-blue-600 active:bg-blue-700 w-full' type='submit'>Resgister
                 </button>
             </div>
         </form>

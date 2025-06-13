@@ -22,7 +22,7 @@ export default function ProductCollections() {
             collections &&collections.map((collection,key) => {
                 return(
                     <div key={key}
-                    className="rounded-3xl border-2 border-gray-300 mb-5 flex justify-between items-center h-38 p-2 md:h-50" 
+                    className="hover:shadow-xl transition duration-300 rounded-3xl border-2 border-gray-300 mb-5 flex justify-between items-center h-38 p-2 md:h-50" 
                     >
                         <div className="w-1/4 h-full">
                             <img className="h-full w-full object-cover rounded-2xl hover:opacity-90" src={collection.image} alt={collection.title} />

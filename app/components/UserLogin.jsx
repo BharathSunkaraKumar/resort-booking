@@ -51,9 +51,9 @@ export default function UserLogin() {
              />
             <br />
             <div 
-                className='flex justify-center mt-3'>
+                className='flex justify-center mt-3 w-full'>
                 <button 
-                    className='bg-blue-500 px-3 py-1 rounded-md text-white hover:bg-blue-600 active:bg-blue-700' type='submit'>Login
+                    className='bg-blue-500 px-3 py-1 rounded-md text-white hover:bg-blue-600 active:bg-blue-700 w-full' type='submit'>Login
                 </button>
             </div>
         </form>
