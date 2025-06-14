@@ -2,27 +2,55 @@
 
 import Calendar from "@/app/components/Calendar"
 import NavBar from "@/app/components/NavBar"
+import { bookingAction } from "@/app/server-actions/bookingAction"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
 export default function page() {
     const [product, setProduct] = useState()
+    const [selectedDates, setSelectedDates] = useState(null)
     const params = useParams()
     const id = params.id
-    console.log(id)
     const dynamicProduct = async() => {
         const response = await fetch(`http://localhost:3000/api/admin/product/${id}`);
         const newData = await response.json()
         setProduct(newData.data)
+        
     }
+
+    const bookingHandler = async() => {
+        if(!selectedDates) {
+            alert('please select booking dates')
+            return
+        }
+        const bookingDetails = {product, selectedDates}
+        try {
+            const response = await bookingAction(bookingDetails)
+            if(response.success) {
+                alert('booked')
+            }else{
+                alert('somting went wrong')
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleDateSelect = (dates) => {
+        setSelectedDates(dates)
+        console.log('selected datesss::', selectedDates)
+    }
+    
     useEffect(()=>{
         dynamicProduct()
-    },[])
+        console.log(selectedDates)
+    },[selectedDates])
   return (
     <div>
         <NavBar/>
-        <Calendar/>
+        <Calendar onDateSelect={handleDateSelect}/>
+        
         <div className="container mx-auto px-4 py-4">
         {product && (
             <div className="flex justify-center items-center h-screen">
@@ -47,7 +75,9 @@ export default function page() {
                 <h2 className="text-lg font-semibold">₹ {product?.price}</h2>
                 <p className="bg-amber-300 w-fit px-3 py-1 rounded-sm"><strong>{product?.offer}</strong>% off</p>
                 <div>
-                    <button className="bg-green-400 rounded-sm hover:ring-4 ring-gray-200 pl-3 pr-4 py-2">Book Now</button>
+                    <button 
+                    onClick={bookingHandler}
+                    className="bg-green-400 rounded-sm hover:ring-4 ring-gray-200 pl-3 pr-4 py-2">Book Now</button>
                 </div>
                 <Link href='/' className="text-blue-500 hover:underline">Go Back</Link>
             </div>

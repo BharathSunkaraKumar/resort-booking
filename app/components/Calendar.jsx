@@ -3,7 +3,7 @@ import { DateRange } from 'react-date-range'
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 
-export default function Calendar() {
+export default function Calendar({onDateSelect}) {
   const [showCalendar, setShowCalendar] = useState(false)
   const [selectedDates, setSelectedDates] = useState(null)
   const[date, setDate] = useState([
@@ -24,8 +24,11 @@ export default function Calendar() {
   const handleSelectedDates = async () => {
     const bookingDates = {startDate, endDate}
     setSelectedDates(`${startDate} - ${endDate}`)
-    setShowCalendar(false)
-    console.log('selectedDates form calnder', bookingDates)  
+    setShowCalendar(false)  
+
+    if(onDateSelect) {
+      onDateSelect(bookingDates)
+    }
   }
   return (
     <div className='container py-4 px-4 mx-auto'>

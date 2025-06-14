@@ -2,11 +2,14 @@
 import React, { useState } from 'react'
 import { registerActions } from '../server-actions/registerAction';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function RegisterForm() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const router = useRouter()
+
     const registerHandler = async(e) => {
         e.preventDefault()
         const registerDetails = {username, email, password}
@@ -15,6 +18,7 @@ export default function RegisterForm() {
            const response = await registerActions(registerDetails);
            if(response.success) {
             alert('Registered successfully')
+            router.push('/login')
            }
         }catch(err){
             console.log(err)
