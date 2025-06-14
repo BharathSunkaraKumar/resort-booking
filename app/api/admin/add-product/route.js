@@ -4,6 +4,8 @@ import {writeFile} from 'fs/promises'
 import path from "path";
 import ProductModel from "@/app/utils/config/models/Product";
 
+const ALLOWED_ORIGIN = "https://resort-booking-taupe.vercel.app";
+
 export const GET = async () => {
     await dbConnection();
     const records = await ProductModel.find({});
