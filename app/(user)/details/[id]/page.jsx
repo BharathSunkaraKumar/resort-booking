@@ -13,7 +13,7 @@ export default function page() {
     const params = useParams()
     const id = params.id
     const dynamicProduct = async() => {
-        const response = await fetch(`https://resort-booking-jv15ck5g2-bharaths-projects-aa325104.vercel.app/api/admin/product/${id}`);
+        const response = await fetch(`https://resort-booking-taupe.vercel.app/api/admin/product/${id}`);
         const newData = await response.json()
         setProduct(newData.data)
         

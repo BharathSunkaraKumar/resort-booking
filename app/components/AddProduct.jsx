@@ -24,7 +24,7 @@ export default function AddProduct() {
         data.append('image', image)
         try {
             // await productActions(recordDetails)
-            const response = await fetch('https://resort-booking-jv15ck5g2-bharaths-projects-aa325104.vercel.app/api/admin/add-product',{
+            const response = await fetch('https://resort-booking-taupe.vercel.app/api/admin/add-product',{
                 method: "POST",
                 credentials: 'include',
                 body: data
