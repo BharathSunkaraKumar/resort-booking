@@ -3,34 +3,41 @@ import { NextResponse } from "next/server";
 import {writeFile} from 'fs/promises'
 import path from "path";
 import ProductModel from "@/app/utils/config/models/Product";
-import { error } from "console";
 
-const ALLOWED_ORIGIN = "https://resort-booking-taupe.vercel.app";
+const ALLOWED_ORIGINS = [
+  "https://resort-booking-taupe.vercel.app", 
+  "http://localhost:3000",                   
+];
 
-function createResponse(data, status, origin = ALLOWED_ORIGIN) {
+function createResponse(data, status, origin) {
+    const allowOrigin = ALLOWED_ORIGINS.includes(origin)
+    ? origin
+    : ALLOWED_ORIGINS[0]; 
   return new NextResponse(JSON.stringify(data), {
     status,
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": origin,
+      "Access-Control-Allow-Origin": allowOrigin,
       "Access-Control-Allow-Credentials": "true",
     },
-  });
+});
 }
 
-export const GET = async () => {
-    await dbConnection();
-    const records = await ProductModel.find({});
-    return  createResponse({data: records},200)
-}
+export const GET = async (request) => {
+    const origin = request.headers.get("origin") || "https://resort-booking-taupe.vercel.app";
+    console.log('origin', origin)
+  await dbConnection();
+  const records = await ProductModel.find({});
+  return createResponse({ data: records }, 200, origin);
+};
 
 export const POST = async (request) => {
 
     const origin = request.headers.get("origin") || "";
 
-  if (origin !== ALLOWED_ORIGIN) {
-    return createResponse({ error: "CORS not allowed" }, 403, origin);
-  }
+    if (!ALLOWED_ORIGINS.includes(origin)) {
+        return createResponse({ error: "CORS not allowed" }, 403, origin);
+    }
 
     await dbConnection();
 
@@ -67,16 +74,14 @@ export const POST = async (request) => {
 }
 
 export const OPTIONS = async (request) => {
-  const origin = request.headers.get("origin") || "";
 
-  if (origin !== ALLOWED_ORIGIN) {
-    return new Response("CORS not allowed", { status: 403 });
-  }
+  const origin = request.headers.get("origin") || "";
+  const allowOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : "";
 
   return new Response(null, {
     status: 204,
     headers: {
-      "Access-Control-Allow-Origin": origin,
+      "Access-Control-Allow-Origin": allowOrigin,
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization, Accept, Origin, enctype",
       "Access-Control-Allow-Credentials": "true",

@@ -6,9 +6,15 @@ import { useEffect, useState } from "react"
 export default function ProductCollections() {
     const [collections, setCollections] = useState('');
     const fetchCollections = async() => {
-        const response = await fetch('https://resort-booking-jv15ck5g2-bharaths-projects-aa325104.vercel.app/api/admin/add-product');
+        const response = await fetch('https://resort-booking-jv15ck5g2-bharaths-projects-aa325104.vercel.app/api/admin/add-product', {
+            method: "GET",
+            credentials: 'include',
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
         const newData = await response.json();
-        // console.log(data)
+        console.log('data', data)
         setCollections(newData.data)
     }
     useEffect(()=>{
