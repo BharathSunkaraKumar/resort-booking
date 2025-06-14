@@ -6,14 +6,18 @@ import ProductModel from "@/app/utils/config/models/Product";
 
 const ALLOWED_ORIGIN = "https://resort-booking-taupe.vercel.app";
 
+function withCORS(response, origin) {
+  response.headers.set("Access-Control-Allow-Origin", origin);
+  response.headers.set("Access-Control-Allow-Credentials", "true");
+  return response;
+}
+
 export const GET = async () => {
     await dbConnection();
     const records = await ProductModel.find({});
-    return NextResponse.json({data: records}, {
-        headers: {
-        'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
-        },
-    })
+    const response =  NextResponse.json({data: records})
+    return withCORS(response, ALLOWED_ORIGIN);
+
 }
 
 export const POST = async (request) => {
@@ -62,13 +66,15 @@ export const POST = async (request) => {
 }
 
 export const OPTIONS = async (request) => {
-  const origin = request.headers.get('origin');
+  const origin = request.headers.get('origin') || "*";
   return new Response(null, {
     status: 204,
     headers: {
-      "Access-Control-Allow-Origin": origin,
-      "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
+     "Access-Control-Allow-Origin": origin,
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers":
+        "Content-Type, Authorization, Accept, Origin",
+      "Access-Control-Allow-Credentials": "true",
     },
   });
 };
