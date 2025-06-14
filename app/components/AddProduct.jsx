@@ -26,6 +26,7 @@ export default function AddProduct() {
             // await productActions(recordDetails)
             const response = await fetch('https://resort-booking-jv15ck5g2-bharaths-projects-aa325104.vercel.app/api/admin/add-product',{
                 method: "POST",
+                credentials: 'include',
                 body: data
             })
             const result = await response.json()
