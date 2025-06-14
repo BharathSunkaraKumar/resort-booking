@@ -11,8 +11,8 @@ export const GET = async () => {
     const records = await ProductModel.find({});
     return NextResponse.json({data: records}, {
         headers: {
-            'Access-Control-Allow-Origin': ALLOWED_ORIGIN
-        }
+        'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+        },
     })
 }
 
@@ -48,7 +48,12 @@ export const POST = async (request) => {
         })
         await newProduct.save()
         return NextResponse.json({response: 'Successfully upload', success:true},
-            {status: 201}
+            {
+                status: 201,
+                headers: {
+                    "Access-Control-Allow-Origin": origin,
+                },
+            }
         )
     } catch (err) {
         console.log(err)
