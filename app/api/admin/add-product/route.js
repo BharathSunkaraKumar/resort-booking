@@ -15,17 +15,27 @@ function withCORS(response, origin) {
 export const GET = async () => {
     await dbConnection();
     const records = await ProductModel.find({});
-    const response =  NextResponse.json({data: records})
-    return withCORS(response, ALLOWED_ORIGIN);
+    return  NextResponse.json(
+        {data: records},
+        {
+            status: 200,
+            headers: {
+                "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
+                "Access-Control-Allow-Credentials": "true",
+            }
+        }
+    )
+    
 
 }
 
 export const POST = async (request) => {
 
-    const origin = request.headers.get('origin');
-    if (origin !== ALLOWED_ORIGIN) {
-        return new NextResponse("CORS not allowed", { status: 403 });
-    }
+    const origin = request.headers.get("origin");
+
+  if (origin !== ALLOWED_ORIGIN) {
+    return new NextResponse("CORS not allowed", { status: 403 });
+  }
 
     await dbConnection();
 
@@ -51,17 +61,29 @@ export const POST = async (request) => {
             image: `/uploads/${image.name}`
         })
         await newProduct.save()
-        return NextResponse.json({response: 'Successfully upload', success:true},
+        return NextResponse.json(
+            {response: 'Successfully upload', success:true},
             {
                 status: 201,
                 headers: {
-                    "Access-Control-Allow-Origin": origin,
+                "Access-Control-Allow-Origin": origin,
+                "Access-Control-Allow-Credentials": "true",
                 },
             }
         )
+
     } catch (err) {
         console.log(err)
-        return NextResponse.json({success: false},{status:500})
+        return NextResponse.json(
+            {success: false},
+            {
+                status:500,
+                headers: {
+                    "Access-Control-Allow-Origin": origin,
+                    "Access-Control-Allow-Credentials": "true",
+                }
+            }
+        )
     }
 }
 
