@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react"
 
+
 export default function ProductCollections() {
     const [collections, setCollections] = useState('');
     const fetchCollections = async() => {
@@ -14,7 +15,7 @@ export default function ProductCollections() {
             }
         });
         const newData = await response.json();
-        console.log('data', data)
+        console.log('data', newData)
         setCollections(newData.data)
     }
     useEffect(()=>{
