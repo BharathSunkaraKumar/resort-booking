@@ -7,10 +7,20 @@ import ProductModel from "@/app/utils/config/models/Product";
 export const GET = async () => {
     await dbConnection();
     const records = await ProductModel.find({});
-    return NextResponse.json({data: records})
+    return NextResponse.json({data: records}, {
+        headers: {
+            'Access-Control-Allow-Origin': ALLOWED_ORIGIN
+        }
+    })
 }
 
 export const POST = async (request) => {
+
+    const origin = request.headers.get('origin');
+    if (origin !== ALLOWED_ORIGIN) {
+        return new NextResponse("CORS not allowed", { status: 403 });
+    }
+
     await dbConnection();
 
     const data = await request.formData();
@@ -43,3 +53,15 @@ export const POST = async (request) => {
         return NextResponse.json({success: false},{status:500})
     }
 }
+
+export const OPTIONS = async (request) => {
+  const origin = request.headers.get('origin');
+  return new Response(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": origin,
+      "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  });
+};
