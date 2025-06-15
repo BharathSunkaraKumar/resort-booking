@@ -6,7 +6,7 @@ export default function Invoice({userId}) {
     const [userdata, setUserdata] = useState()
     const [dates, setDates] = useState(null)
     const fetchBooking = async () => {
-        const response = await fetch(`http://localhost:3000/api/users/${userId}`);
+        const response = await fetch(`https://resort-booking-taupe.vercel.app/api/users/${userId}`);
         const newdata = await response.json()
         const sd = new Date(newdata.data.bookings[0].startDate)
         const ed = new Date(newdata.data.bookings[0].endDate)
