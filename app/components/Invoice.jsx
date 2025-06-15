@@ -26,7 +26,7 @@ export default function Invoice({userId}) {
                 userdata && userdata.map((each) => {
                     return (
                         <div
-                        className="bg-blue-100 p-2 rounded-xl flex flex-col gap-2 hover:bg-blue-200 border-l-3 border-blue-600"
+                        className="bg-blue-100 p-2 rounded-xl flex flex-col gap-2 hover:bg-blue-200 border-l-3 border-blue-600 mb-2"
                          key={each._id}>
                             <h1 className="font-bold text-2xl text-blue-900">{each.productName}</h1>
                             <div className="font-semibold text-blue-700 flex flex-col gap-1">
