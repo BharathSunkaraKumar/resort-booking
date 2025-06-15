@@ -16,7 +16,6 @@ export default function page() {
         const response = await fetch(`https://resort-booking-taupe.vercel.app/api/admin/product/${id}`);
         const newData = await response.json()
         setProduct(newData.data)
-        
     }
 
     const bookingHandler = async() => {
@@ -41,7 +40,7 @@ export default function page() {
         setSelectedDates(dates)
         console.log('selected datesss::', selectedDates)
     }
-    
+
     useEffect(()=>{
         dynamicProduct()
         console.log(selectedDates)
