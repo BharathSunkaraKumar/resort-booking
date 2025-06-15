@@ -9,7 +9,7 @@ export default function NavBar({userName}) {
             <Link href='/'>SBK Resort</Link>
             <div className='hidden md:flex space-x-8'>
                 <Link href='/'>call now: 123 456 789</Link>
-                <Link href='/'>Bookings</Link>
+                <Link href='/invoice'>Bookings</Link>
                 <Link href='/'>Welcome: {userName && <strong className='text-blue-500'>{userName}</strong>}</Link>
                 <Link className='hover:text-blue-500' href='/api/auth/signout'>Logout</Link>
             </div>

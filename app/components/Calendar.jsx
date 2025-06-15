@@ -32,11 +32,11 @@ export default function Calendar({onDateSelect}) {
   }
   return (
     <div className='container py-4 px-4 mx-auto'>
-      <div className=' flex justify-center gap-3 items-baseline'>
+      <div className='flex justify-center gap-3 items-baseline '>
         <div className='border-1 border-blue-500 px-3 py-1 rounded-md hover:bg-blue-500 hover:text-white' onClick={()=>{setShowCalendar(!showCalendar)}} >
         {
           !selectedDates && (
-            <div>{`${currentDate} - ${formattedDate}`}</div>
+            <div className='text-xs md:text-xl'>{`${currentDate} - ${formattedDate}`}</div>
           )
         }
         {
@@ -47,7 +47,7 @@ export default function Calendar({onDateSelect}) {
       </div>
       
       <div>
-        <button className='bg-blue-500 px-2 py-1 rounded-sm text-white mt-5 hover:bg-blue-600' onClick={handleSelectedDates}>Select Dates</button>
+        <button className='h-full text-xs md:text-xl bg-blue-500 px-2 py-1 rounded-sm text-white mt-5 hover:bg-blue-600' onClick={handleSelectedDates}>Select Dates</button>
       </div>
       </div>
       <div className='flex justify-center mt-5'>
